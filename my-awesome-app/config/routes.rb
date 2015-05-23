@@ -1,6 +1,13 @@
 MyAwesomeApp::Application.routes.draw do
-  get "users/new"
+  root :to => 'sessions#new'
 
+  resources :users
+  get    'signup'  => 'users#new'
+  
+  get    'login'   => 'sessions#new'
+  post   'login'   => 'sessions#create'
+  delete 'logout'  => 'sessions#destroy'
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

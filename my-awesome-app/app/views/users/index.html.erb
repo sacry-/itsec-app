@@ -1,0 +1,28 @@
+<h1>Listing Users</h1>
+
+<% if @users.empty? %>
+  There are currently no users
+<% elsif admin?(current_user) %>
+  <div id="center">
+    <table>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Admin?</th>
+      </tr>
+     
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.id %></td>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.admin? %></td>
+        <td><%= link_to "Delete", user, method: "delete" %></td>
+      </tr>
+    <% end %>
+    </table>
+  </div>
+<% else %>
+  Only admins are allowed to view users! <%= link_to "Log in", login_path %> as admin.
+<% end %>

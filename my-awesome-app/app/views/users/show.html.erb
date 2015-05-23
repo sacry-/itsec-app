@@ -1,0 +1,43 @@
+<% provide(:title, 'Show user') %>
+
+<div id="user-show">
+  <% if @user.nil? %>
+    User with <%= params[:id] %> does not exist!
+  <% else %>
+    <% if accessible?(@user) %>
+      <h1>Current User</h1>
+      <table>
+        <tr>
+          <td>id</td>
+          <td><%= @user.id %></td>
+        </tr>
+        <tr>
+          <td>name</td>
+          <td><%= @user.name %></td>
+        </tr>
+        <tr>
+          <td>email</td>
+          <td><%= @user.email %></td>
+        </tr>
+        <tr>
+          <td>password digest</td>
+          <td><%= @user.password_digest %></td>
+        </tr>
+        <tr>
+          <td>admin?</td>
+          <td><%= @user.admin? %></td>
+        </tr>
+        <tr>
+          <td>created at</td>
+          <td><%= @user.created_at %></td>
+        </tr>
+        <tr>
+          <td>updated at</td>
+          <td><%= @user.updated_at %></td>
+        </tr>
+      </table>
+    <% else %>
+      This is not you! You cannot invade other peoples privacy like that!
+    <% end %>
+  <% end %>
+</div>
