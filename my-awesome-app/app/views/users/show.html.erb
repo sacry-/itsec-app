@@ -2,11 +2,11 @@
 
 <div id="user-show">
   <% if @user.nil? %>
-    User with <%= params[:id] %> does not exist!
+    User with <%= params[:id].nil? ? "_nil_" : params[:id] %> does not exist!
   <% else %>
     <% if accessible?(@user) or admin?(current_user) %>
       <h1>Current User</h1>
-      <table>
+      <table id="user-show-table">
         <tr>
           <td>id</td>
           <td><%= @user.id %></td>

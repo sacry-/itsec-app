@@ -34,7 +34,11 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find_by_id(params[:id])
+    if params[:id].nil? and logged_in?
+      @user = current_user
+    else
+      @user = User.find_by_id(params[:id])
+    end
   end
 
   def destroy
@@ -43,6 +47,10 @@ class UsersController < ApplicationController
       user.destroy
     end
     redirect_to :root
+  end
+
+  def me
+    @user = current_user
   end
 
 private
