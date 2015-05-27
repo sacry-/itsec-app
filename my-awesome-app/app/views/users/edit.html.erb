@@ -1,0 +1,35 @@
+<% if @user.nil? %>
+  User with <%= params[:id] %> does not exist!
+<% elsif accessible?(@user) or admin?(current_user) %>
+  <table>
+    <tr>
+      <td>
+        <%= form_for(@user) do |f| %>
+          <%= f.label :name %>
+          <%= f.text_field :name %><br><br>
+
+          <%= f.label :email %>
+          <%= f.email_field :email %><br><br>
+
+          <%= f.label :password %>
+          <%= f.password_field :password %><br><br>
+
+          <%= f.label :password_confirmation, "Confirmation" %>
+          <%= f.password_field :password_confirmation %><br><br>
+
+          <%= f.label :admin, "Admin?" %>
+          <%= f.check_box :admin %> <br><br>
+
+          <%= f.submit "Update user", class: "btn btn-primary" %>
+        <% end %><br>
+      </td>
+    </tr>
+    <tr> 
+      <td>
+        <%= link_to "Delete", @user, class: "btn btn-primary", method: "delete" %>
+      </td>
+    </tr>
+  </table>
+<% else %>
+  This is not you! Please sign in!
+<% end %>

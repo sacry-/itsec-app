@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :email, presence: true
-  validates :password, presence: true, length: { minimum: 3, maximum: 6 }
+  validates :password, presence: true, length: { minimum: 3, maximum: 6 }, allow_nil: true
 
   def admin?
     self.admin == 1

@@ -1,4 +1,19 @@
 class UsersController < ApplicationController
+
+  def edit
+    @user = User.find_by_id(params[:id])
+  end
+
+  def update
+    @user = User.find_by_id(params[:id])
+    if @user.update_attributes(user_params)
+      flash[:success] = "Successfully updated attributes!"
+      redirect_to @user
+    else
+      render 'edit'
+    end
+  end
+
   def new
     @user = User.new
   end
@@ -33,11 +48,11 @@ class UsersController < ApplicationController
 private
   def user_params
     user_hash = params[:user]
-    { 
-      name: user_hash[:name],
-      email: user_hash[:email],
-      password: user_hash[:password],
-      admin: user_hash[:admin]
-    }
+    h = {}
+    h[:name] = user_hash[:name] unless user_hash[:name].nil?
+    h[:email] = user_hash[:email] unless user_hash[:email].nil?
+    h[:password] = user_hash[:password] unless user_hash[:password].nil?
+    h[:admin] = user_hash[:admin] unless user_hash[:admin].nil?
+    h
   end
 end

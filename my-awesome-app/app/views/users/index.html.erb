@@ -19,6 +19,7 @@
         <td><%= user.email %></td>
         <td><%= user.admin? %></td>
         <td><%= link_to "Delete", user, method: "delete" %></td>
+        <td><%= link_to "Change user", edit_user_path(user) %></td>
       </tr>
     <% end %>
     </table>

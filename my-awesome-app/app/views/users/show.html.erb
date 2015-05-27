@@ -4,7 +4,7 @@
   <% if @user.nil? %>
     User with <%= params[:id] %> does not exist!
   <% else %>
-    <% if accessible?(@user) %>
+    <% if accessible?(@user) or admin?(current_user) %>
       <h1>Current User</h1>
       <table>
         <tr>
