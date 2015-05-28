@@ -1,29 +1,33 @@
-<h1>Listing Users</h1>
-
-<% if @users.empty? %>
-  There are currently no users
-<% elsif admin?(current_user) %>
-  <div id="center">
-    <table id="user-index-table">
-      <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Admin?</th>
-      </tr>
-     
-    <% @users.each do |user| %>
-      <tr>
-        <td><%= user.id %></td>
-        <td><%= user.name %></td>
-        <td><%= user.email %></td>
-        <td><%= user.admin? %></td>
-        <td><%= link_to "Delete", user, method: "delete" %></td>
-        <td><%= link_to "Change user", edit_user_path(user) %></td>
-      </tr>
-    <% end %>
-    </table>
-  </div>
+<% if admin?(current_user) %>
+  <h1>Listing Users</h1>
+  <% if @users.empty? %>
+    There are currently no users
+  <% else %>
+    <div id="center">
+      <table id="user-index-table">
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Admin?</th>
+        </tr>
+       
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= user.id %></td>
+            <td><%= user.name %></td>
+            <td><%= user.email %></td>
+            <td><%= user.admin? %></td>
+            <td><%= link_to "Delete", user, method: "delete" %></td>
+            <td><%= link_to "Change user", edit_user_path(user) %></td>
+          </tr>
+        <% end %>
+      </table>
+      <p><%= will_paginate @users %></p>
+    </div>
+  <% end %>
 <% else %>
-  Only admins are allowed to view users! <%= link_to "Log in", login_path %> as admin.
+  <div id="centered">
+    Only admins are allowed to view users! <%= link_to "Log in", login_path %> as admin.
+  </div>
 <% end %>

@@ -6,7 +6,8 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find_by_id(params[:id])
-    if @user.update_attributes(user_params)
+    updated = @user.update_attributes(user_params)
+    if updated
       flash[:success] = "Successfully updated attributes!"
       redirect_to @user
     else
@@ -30,7 +31,7 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.all
+    @users = paginated_users
   end
 
   def show
@@ -43,10 +44,16 @@ class UsersController < ApplicationController
 
   def destroy
     user = User.find_by_id(params[:id])
+    is_accessible = accessible?(user)
     unless user.nil?
       user.destroy
     end
-    redirect_to :root
+    if is_accessible
+      redirect_to :root
+    else
+      @users = paginated_users
+      render 'index'
+    end
   end
 
   def me
@@ -54,13 +61,17 @@ class UsersController < ApplicationController
   end
 
 private
+  def paginated_users
+    User.paginate(page: params[:page])
+  end
+
   def user_params
-    user_hash = params[:user]
-    h = {}
-    h[:name] = user_hash[:name] unless user_hash[:name].nil?
-    h[:email] = user_hash[:email] unless user_hash[:email].nil?
-    h[:password] = user_hash[:password] unless user_hash[:password].nil?
-    h[:admin] = user_hash[:admin] unless user_hash[:admin].nil?
-    h
+    if params[:user].blank?
+      {}
+    else
+      filtered = params[:user].select{|_, v| not v.blank? }
+      filtered["password"] = nil if filtered["password"].nil?
+      filtered
+    end
   end
 end

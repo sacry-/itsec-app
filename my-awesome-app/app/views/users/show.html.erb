@@ -1,10 +1,10 @@
 <% provide(:title, 'Show user') %>
 
-<div id="user-show">
-  <% if @user.nil? %>
-    User with <%= params[:id].nil? ? "_nil_" : params[:id] %> does not exist!
-  <% else %>
-    <% if accessible?(@user) or admin?(current_user) %>
+<div id="centered">
+  <% if accessible?(@user) or admin?(current_user) %>
+    <% if @user.nil? %>
+      User with <%= params[:id].nil? ? "_nil_" : params[:id] %> does not exist!
+    <% else %>
       <h1>Current User</h1>
       <table id="user-show-table">
         <tr>
@@ -36,8 +36,8 @@
           <td><%= @user.updated_at %></td>
         </tr>
       </table>
-    <% else %>
-      This is not you! You cannot invade other peoples privacy like that!
     <% end %>
+  <% else %>
+    This is not you! You cannot invade other peoples privacy like that!
   <% end %>
 </div>

@@ -1,14 +1,12 @@
 <div id="header">
   <% if logged_in? %>
-  <table id="header-table">
-    <tr>
-      <td id="header_elem"><%= link_to "Profile", current_user %></td>
-      <td id="header_elem"><%= link_to "Users", users_path %></td>
-      <td id="header_elem"><%= link_to "Settings", edit_user_path(current_user) %></td>
-      <td id="header_elem"><%= link_to "Log out #{current_user.name} (#{current_user.id})", logout_path, method: "delete" %></td>
-    </tr>
-  </table>
-  <% else %>
-    Please <%= link_to "Log in", login_path %> first.
+    <table id="header-table">
+      <tr>
+        <td id="header_elem"><%= link_to "Profile", current_user %></td>
+        <td id="header_elem"><%= link_to "Users", users_path %></td>
+        <td id="header_elem"><%= link_to "Settings", edit_user_path(current_user) %></td>
+        <td id="header_elem"><%= link_to "Log out #{current_user.name} (#{current_user.id})", logout_path, method: "delete" %></td>
+      </tr>
+    </table>
   <% end %>
 </div>

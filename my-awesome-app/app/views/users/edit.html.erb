@@ -1,6 +1,4 @@
-<% if @user.nil? %>
-  User with <%= params[:id] %> does not exist!
-<% elsif accessible?(@user) or admin?(current_user) %>
+<% if accessible?(@user) or admin?(current_user) %>
   <table id="edit-user-table">
     <tr>
       <td>
@@ -17,9 +15,11 @@
           <%= f.label :password_confirmation, "Confirmation" %>
           <%= f.password_field :password_confirmation %><br><br>
 
-          <%= f.label :admin, "Admin?" %>
-          <%= f.check_box :admin %> <br><br>
-
+          <% if admin?(current_user) %>
+            <%= f.label :admin, "Admin?" %>
+            <%= f.check_box :admin %> <br><br>
+          <% end %>
+          
           <%= f.submit "Update user", class: "btn btn-primary" %>
         <% end %><br>
       </td>
@@ -31,5 +31,7 @@
     </tr>
   </table>
 <% else %>
-  This is not you! Please sign in!
+  <div id="centered">
+    This is not you! You cannot invade other peoples privacy like that!
+  </div>
 <% end %>
