@@ -1,0 +1,13 @@
+<% user = User.find_by_id(params[:user_id]) %>
+<% if not user_activation_expired?(user) %>
+  <h1>Account Activation</h1>
+  <p>Hi user.name,</p>
+
+  <p>
+  Please activate your account
+  </p>
+
+  <%= link_to "Activate", edit_account_activation_url(params[:id], email: user.email, user_id: user.id) %>
+<% else %> 
+  Token Expired!
+<% end %>

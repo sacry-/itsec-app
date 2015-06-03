@@ -20,11 +20,15 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
+    create_params = user_params
+    create_params["activation_started"] = Time.now
+    @user = User.new(create_params)
     if @user.save
-      log_in @user
-      flash[:success] = "Successfully signed up!"
-      redirect_to @user
+      redirect_to account_activation_url(
+        @user.activation_token,
+        email: @user.email,
+        user_id: @user.id
+      )
     else
       render 'new'
     end

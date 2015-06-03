@@ -16,7 +16,9 @@ def profile_for(name, email, password, admin)
     email: email, 
     password: password, 
     password_confirmation: password, 
-    admin: admin
+    admin: admin,
+    activated: true,
+    activated_at: Time.zone.now
   }
 end
 

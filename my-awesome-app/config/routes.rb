@@ -3,12 +3,15 @@ MyAwesomeApp::Application.routes.draw do
 
   resources :users
   get    'signup'  => 'users#new'
-  
+
   get    'login'   => 'sessions#new'
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
 
   get    'me' => 'users#show'
+  
+  resources :account_activations, only: [:show, :edit]
+  get 'account_activations/:id' => "account_activations#show"
   
   # The priority is based upon order of creation:
   # first created -> highest priority.
