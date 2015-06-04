@@ -12,7 +12,8 @@ MyAwesomeApp::Application.routes.draw do
   
   resources :account_activations, only: [:show, :edit]
   get 'account_activations/:id' => "account_activations#show"
-  
+  resources :password_resets, only: [:show, :new, :create, :edit, :update]
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

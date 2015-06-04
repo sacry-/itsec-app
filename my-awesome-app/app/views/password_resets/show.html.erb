@@ -1,0 +1,9 @@
+<% user = User.find_by_id(params[:user_id]) %>
+<% if not user.password_reset_expired? %>
+  <h1>Password Reset</h1>
+  <p>Hi <%= user.name %>,</p>
+  <%= link_to "Reset password", edit_password_reset_url(params[:id], email: user.email) %>
+
+<% else %>
+  Password reset expired!
+<% end %>

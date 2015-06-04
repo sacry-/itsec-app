@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  attr_accessor :remember_token, :activation_token
+  attr_accessor :remember_token, :activation_token, :reset_token
   before_save   :downcase_email
   before_create :create_activation_digest
 
@@ -15,7 +15,9 @@ class User < ActiveRecord::Base
                   :password_digest,
                   :activated,
                   :activated_at,
-                  :activation_started
+                  :activation_started,
+                  :reset_digest,
+                  :reset_sent_at
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :email, presence: true
@@ -64,6 +66,16 @@ class User < ActiveRecord::Base
     digest = send("#{attribute}_digest")
     return false if digest.nil?
     BCrypt::Password.new(digest).is_password?(token)
+  end
+
+  def password_reset_expired?
+    reset_sent_at < 30.minutes.ago
+  end
+
+  def create_reset_digest
+    self.reset_token = User.new_token
+    update_attribute(:reset_digest,  User.digest(reset_token))
+    update_attribute(:reset_sent_at, Time.zone.now)
   end
 
   def create_activation_digest
