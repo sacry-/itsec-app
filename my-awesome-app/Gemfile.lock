@@ -89,6 +89,8 @@ GEM
     passenger (5.0.9)
       rack
       rake (>= 0.8.1)
+    protected_attributes (1.0.9)
+      activemodel (>= 4.0.1, < 5.0)
     pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -163,6 +165,7 @@ DEPENDENCIES
   jquery-rails
   less-rails
   passenger
+  protected_attributes
   pry-rails
   rails (= 4.2.1)
   sass-rails

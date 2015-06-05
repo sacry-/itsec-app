@@ -11,6 +11,7 @@ gem 'therubyracer'
 gem "less-rails"
 gem "bootstrap-sass"
 gem 'bcrypt-ruby'
+gem 'protected_attributes'
 
 # Gems used only for assets and not required
 # in production environments by default.
